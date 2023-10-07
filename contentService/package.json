@@ -1,0 +1,20 @@
+{
+  "name": "contentservice",
+  "version": "1.0.0",
+  "description": "microservice for content",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js"
+  },
+  "author": "Aanchal Gupta",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.4",
+    "nodemon": "^3.0.1"
+  }
+}
