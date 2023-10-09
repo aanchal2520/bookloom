@@ -1,3 +1,4 @@
+const axios = require('axios');
 const Book = require('../models/Book');
 
 // get all the content
@@ -96,3 +97,33 @@ exports.getLatestContent = async (req, res) => {
     }
 }
 
+exports.getTopContent = (req, res) => {
+    const url = 'http://localhost:3000/userInteractionService/userInteraction/getPopularContent';
+    const { user_id } = req.body;
+
+    if(req.user_id !== user_id) {
+        return res.status(400).json({ message: 'Unauthorized user' });
+    }
+
+    const requestData = {
+        user_id: user_id
+    };
+
+    const headers = {
+        'auth-token': req.header('auth-token')
+    };
+
+    try {
+        axios.post(url, requestData, { headers: headers })
+        .then(response => {
+            console.log(response.data);
+            return res.status(200).json({ topContent: response.data });
+        })
+        .catch(error => {
+            return res.status(400).json({ error });
+        });    
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+    
+}

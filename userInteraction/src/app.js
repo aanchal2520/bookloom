@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
-const PORT = 3002; // will move it to environment variables file
+
+require('dotenv').config();
+
+const PORT = process.env.PORT;
 
 // middleware
 app.use(express.json());

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const { validateRequest } = require('../../../common/middlewares/validationMiddleware');
+const { validateRequest } = require('../middlewares/validationMiddleware');
 const { authenticateUser } = require('../middlewares/authMiddleware');
 
-const { getContent, addContent, updateContent, deleteContent, getLatestContent } = require('../controllers/contentControllers');
+const { getContent, addContent, updateContent, deleteContent, getLatestContent, getTopContent } = require('../controllers/contentControllers');
 
 router.get('/getContent', authenticateUser, getContent);
 
@@ -32,5 +32,11 @@ router.post('/deleteContent', [
 ], deleteContent);
 
 router.get('/getLatestContent', authenticateUser, getLatestContent);
+
+router.post('/getTopContent', [ 
+    check('user_id').notEmpty().withMessage('user_id required'),
+    authenticateUser,
+    validateRequest 
+], getTopContent);
 
 module.exports = router;

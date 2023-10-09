@@ -6,3 +6,5 @@ contentService/node_modules/*
 contentService/node_modules
 common/node_modules/*
 common/node_modules
+api-gateway/node_modules/*
+api-gateway/node_modules

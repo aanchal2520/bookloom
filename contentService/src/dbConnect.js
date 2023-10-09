@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbConnectionURI = 'mongodb://0.0.0.0:27017/pratilipi-ContentService';
+const dbConnectionURI = process.env.DB_CONNECTION_URI;
 
 const connectToDatabase = async () => {
     try {

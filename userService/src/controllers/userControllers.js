@@ -21,8 +21,7 @@ exports.updateUser = async (req, res) => {
         const updatedUser = await User.updateOne({ email: email }, 
             { $set: { first_name: first_name, 
                     last_name: last_name,
-                    phone_number: phone_number,
-                    password: password } });
+                    phone_number: phone_number } });
 
         return res.status(200).json({ message: 'User Successfully Updated', updatedUser });
         
@@ -51,7 +50,7 @@ exports.getUserById = async (req, res) => {
     
     if(req.user._id != id)
         return res.status(400).json({ message: 'User id and auth token id do not match - unauthorized user' });
-
+    
     try {
         const user = await User.findOne({ _id: id });
         return res.status(200).json(user);

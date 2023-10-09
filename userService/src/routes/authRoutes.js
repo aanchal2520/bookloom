@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const { userSignup, userLogin } = require('../controllers/authControllers');
-const { validateRequest } = require('../../../common/middlewares/validationMiddleware'); 
+const { validateRequest } = require('../middlewares/validationMiddleware'); 
 
 router.post('/userSignup', [ 
     check('email').isEmail().notEmpty().withMessage('Enter valid email'),

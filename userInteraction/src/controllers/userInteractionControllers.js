@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const UserInteraction = require('../models/UserInteraction');
 
-exports.getLikeCount = async (req, res) => {
+exports.getTotalBookLikeCount = async (req, res) => {
     if(req.user === null) {
         return res.status(400).json({ message: 'Invalid user' });
     }
@@ -14,7 +14,6 @@ exports.getLikeCount = async (req, res) => {
         const like_array = await UserInteraction.find({ book_id: book_id, interaction: 'LIKE' });
         const like_count = like_array.length;
 
-        console.log(like_count);
         return res.status(200).json({ book_id, like_count });
     } catch (error) {
         console.log(error);
@@ -22,7 +21,7 @@ exports.getLikeCount = async (req, res) => {
     }
 }
 
-exports.getReadCount = async (req, res) => {
+exports.getTotalBookReadCount = async (req, res) => {
     if(req.user === null) {
         return res.status(400).json({ message: 'Invalid user' });
     }
@@ -82,6 +81,8 @@ exports.updateReadCount = async (req, res) => {
             return res.status(200).json({ message: 'User marked book as unread', book_id });
         } else {
             const newLikeEvent = new UserInteraction({ user_id, book_id, interaction: 'READ' });
+            await newLikeEvent.save();
+
             if(newLikeEvent) 
                 return res.status(200).json({ message: 'User read event regestered successfully' });
             else
@@ -115,7 +116,6 @@ exports.getPopularContent = async (req, res) => {
             }
         ]);
         
-        console.log('Top 10 books:', top10Books);
         return res.status(200).json(top10Books);
     } catch (error) {
         return res.status(500).json({ message: 'Internal Server Error' });

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const dbConnectionURI = 'mongodb://127.0.0.1:27017/pratilipi-UserService';
+// const dbConnectionURI = 'mongodb://127.0.0.1:27017/pratilipi-UserService';
+const dbConnectionURI = process.env.DB_CONNECTION_URI;
 
 const connectToDatabase = async () => {
     try {

@@ -4,19 +4,6 @@ const path = require('path');
 
 const Book = require('../models/Book');
 
-// exports.insertFromCSV = async (req, res) => {
-//     csvtojson()
-//         .fromFile('data.csv')
-//         .then(csvData => {
-//             Book.insertMany(csvData).then(() => {
-//                 res.status(200).json({ message: 'CSV Data successfully added to the database' });
-//             }).catch((err) => {
-//                 // add status
-//                 res.json({ message: 'Could not upload data from csv to database', err: err });
-//             })
-//         })
-// }
-
 exports.insertFromCSV = async (req, res) => {
     try {
         const filePath = path.resolve(__dirname, '../data.csv');
