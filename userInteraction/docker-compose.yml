@@ -10,8 +10,8 @@ services:
       - mongo_db:/data/db
 
   # Node Application
-  user_service:
-    build: .
+  user_interaction_service:
+    image: user_interaction_service_image
     ports:
       - 3002:3002
     environment:
@@ -22,3 +22,8 @@ services:
 
 volumes:
   mongo_db: {}
+
+networks:
+  default:
+    external: true
+    name: api-gateway_default

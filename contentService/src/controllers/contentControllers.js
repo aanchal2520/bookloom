@@ -98,7 +98,7 @@ exports.getLatestContent = async (req, res) => {
 }
 
 exports.getTopContent = (req, res) => {
-    const url = 'http://localhost:3000/userInteractionService/userInteraction/getPopularContent';
+    const url = 'http://api_gateway:3000/userInteractionService/userInteraction/getPopularContent';
     const { user_id } = req.body;
 
     if(req.user_id !== user_id) {

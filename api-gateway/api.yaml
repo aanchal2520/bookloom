@@ -1,0 +1,162 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Pratilipi APIs
+  description: APIs for the Pratilipi Backend project
+servers:
+  - description: Pratilipi API documentation
+    url: http://localhost:3000
+
+paths:
+  /contentService/content/getContent:
+    get:
+      summary: Get content
+      description: This api is used to get all the exiting content
+      parameters:
+        - in: header
+          name: auth-token
+          description: Authentication token
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Content returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: Unique identifier for the content (ObjectId from MongoDB)
+                    user_id:
+                      type: string
+                      description: user_id of the user who added the content
+                    title:
+                      type: string
+                      description: Title of the content
+                    story:
+                      type: string
+                      description: Content story
+                    date_published:
+                      type: string
+                      format: date-time
+                      description: Date when the content was published
+        "401":
+          description: Token not provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns a string with an appropriate message
+        "403":
+          description: Token verification failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns a string with an appropriate message
+                  error:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: Returns a string with error name
+                      message:
+                        type: string
+                        description: Returns a string with an appropriate message
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns a string with an appropriate response
+
+  /contentService/content/addContent:
+    post:
+      summary: Add new Content
+      description: This api is used to add new content
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: User identifier
+                title:
+                  type: string
+                  description: Title of the content
+                story:
+                  type: string
+                  description: Content story
+      parameters:
+        - in: header
+          name: auth-token
+          description: Authentication token
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Content successfully added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns a string with an appropriate message
+        "400":
+          description: Content with same title exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns a string with an appropriate message
+        "401":
+          description: Unauthorized user - Token not passed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns a string with an appropriate message
+        "403":
+          description: Unauthorized user - Auth token verification failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns a string with an appropriate message
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Returns a string with an appropriate response
